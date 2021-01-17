@@ -5,9 +5,14 @@ import Field from './Field'
 export default props => {
     const rows = props.board.map((row, r) => {
         const columns = row.map((field, c) => {
-            return <Field {...field} key={c} />
+            return <Field
+                key={c}
+                {...field}
+                onOpen={() => props.onOpenField(r, c)}
+                onSelect={e => props.onSelectField(r, c)}
+            />
         })
-        return <View style={{ flexDirection: 'row' }} key={r} >{columns}</View>
+        return <View key={r} >{columns}</View>
     })
     return (
         <View style={styles.container}>
@@ -18,6 +23,7 @@ export default props => {
 
 const styles = StyleSheet.create({
     container: {
+        flexDirection: 'row',
         backgroundColor: '#eee'
     }
 })

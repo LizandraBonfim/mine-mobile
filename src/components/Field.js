@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
 import params from '../params'
 import Mine from './Mine'
 import Flag from './Flag'
@@ -22,15 +22,18 @@ export default props => {
         if (nearMines >= 6) color = '#f221a9'
     }
     return (
-        <View style={styleField}>
-            {!mined && opened && nearMines > 0
-                ? <Text style={[styles.label, { color: color }]}>{nearMines}</Text>
-                : false}
+        <TouchableWithoutFeedback onPress={props.onOpen} onLongPress={props.onSelect}>
 
-            {mined && opened ? <Mine /> : false}
+            <View style={styleField}>
+                {!mined && opened && nearMines > 0
+                    ? <Text style={[styles.label, { color: color }]}>{nearMines}</Text>
+                    : false}
 
-            {flagged && !opened ? <Flag /> : false}
-        </View>
+                {mined && opened ? <Mine /> : false}
+
+                {flagged && !opened ? <Flag /> : false}
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 
